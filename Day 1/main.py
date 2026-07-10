@@ -9,16 +9,24 @@ print("welcome", name + "!")
 print("Let's see how your day went!")
 
 def collect_habits():
-       habits = ["Gym", "Reading", "Content", "Meditation", "AI Learning", "Coding", "Networking"]
+       habits = {"Gym": {"completed": False, "weekly_targets": 5, "streak": 0},
+                 "Meditation": {"completed": False, "weekly_targets": 7, "streak": 0},
+                 "Reading": {"completed": False, "weekly_targets": 7, "streak": 0},
+                 "Content Creation": {"completed": False, "weekly_targets": 5, "streak": 0},
+                 "Networking": {"completed": False, "weekly_targets": 3, "streak": 0},
+                 "Coding": {"completed": False, "weekly_targets": 5, "streak": 0}
+                 }
        return habits 
 
 def ask_questions(habits):
     score = 0
-    for habit in habits:
-        answer = input(f"Did you do {habit} today? (yes/no) ")
+    for habit_name, habit_data in habits.items():
+        answer = input(f"Did you do {habit_name} today? (yes/no) ")
         if answer == "yes":
-            score = score + 1 
+            habit_data["completed"] = True
+            score = score + 1
     return score
+
 def calculate_score(score, habits):
     percentage = (score / len(habits)) * 100
     percentage = round(percentage, 2)
