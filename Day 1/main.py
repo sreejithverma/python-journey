@@ -32,11 +32,11 @@ def calculate_score(score, habits):
     percentage = round(percentage, 2)
     return percentage
 
-def show_results(score, percentage):
+def show_results(score, percentage, habits):
     print()
     print("Today's Summary")
     print(".....................")
-    print("Today's Score:", score, "/", len(habits))
+    print("Today's Score:", score)
     print("Today's Percentage:", percentage, "%")
     if percentage == 100:
      print("PEAK PRODUCTIVITY!")
@@ -52,6 +52,17 @@ def show_results(score, percentage):
     else:
      print("Today did not go as planned, The best time to reset is tomorrow!")
 
+    file = open("completed_habits.txt", "w")
+    file.write("Today's score: " + str(score) + "\n")
+    file.write("Today's percentage: " + str(percentage) + "%\n")
+    file.write("\nCompleted Habits:\n")
+
+    for habit_name, habit_data in habits.items():
+     if habit_data["completed"]:
+        file.write(habit_name + "\n")
+    
+    
+    file.close()
 
 
 habits = collect_habits()
@@ -60,4 +71,4 @@ score = ask_questions(habits)
 
 percentage = calculate_score(score, habits)
 
-show_results(score, percentage)
+show_results(score, percentage, habits)
