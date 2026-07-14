@@ -15,12 +15,20 @@ class SuccessTracker:
        self.percentage = 0
 
    def ask_questions(self):
-       for habit_name, habit_data in self.habits.items():
-           answer = input(f"Did you do {habit_name} today? (yes/no) ")
-           if answer.lower() == "yes":
+       
+        for habit_name, habit_data in self.habits.items():
+           while True:
+            answer = input(f"Did you do {habit_name} today? (yes/no) ")
+            if answer == "yes":
                habit_data["completed"] = True
                self.score = self.score+ 1
-       return self.score
+               break    
+            elif answer == "no":
+                break
+           
+            else:
+             print("Invalid input. Please enter 'yes' or 'no'.")
+        return self.score
         
         
    

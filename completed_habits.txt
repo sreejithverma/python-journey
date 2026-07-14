@@ -1,6 +1,9 @@
-Today's score: 2
-Today's percentage: 33.33%
+Today's score: 5
+Today's percentage: 83.33%
 
 Completed Habits:
 Gym
-Meditation
+Reading
+Content Creation
+Networking
+Coding
