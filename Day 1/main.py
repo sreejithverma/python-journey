@@ -1,3 +1,6 @@
+import json
+from datetime import date
+
 print("=" * 40)
 print("    DAILY SUCCESS TRACKER")
 print("=" * 40)
@@ -57,17 +60,39 @@ class SuccessTracker:
         else:
          print("Today did not go as planned, The best time to reset is tomorrow!")
 
-   def save_results(self):
-    file = open("completed_habits.txt", "w")
-    file.write("Today's score: " + str(self.score) + "\n")
-    file.write("Today's percentage: " + str(self.percentage) + "%\n")
-    file.write("\nCompleted Habits:\n")
 
-    for habit_name, habit_data in self.habits.items():
-     if habit_data["completed"]:
-        file.write(habit_name + "\n")
+   def load_history(self):
+        try:
+          with open("success_data.json", "r") as file:
+            self.success_history = json.load(file)
 
-    file.close()
+        except FileNotFoundError:
+            self.success_history = []
+
+        return self.success_history 
+    
+   def save_results(self): 
+       daily_result = {
+          "date": str(date.today()),
+          "name": name,
+          "score": self.score,
+          "percentage": self.percentage
+     }
+       self.success_history.append(daily_result)
+   
+       with open("success_data.json", "w") as file:
+         json.dump(self.success_history, file)
+
+       file = open("completed_habits.txt", "w")
+       file.write("Today's score: " + str(self.score) + "\n")
+       file.write("Today's percentage: " + str(self.percentage) + "%\n")
+       file.write("\nCompleted Habits:\n")
+
+       for habit_name, habit_data in self.habits.items():
+           if habit_data["completed"]:
+              file.write(habit_name + "\n")
+
+       file.close()
    
 def collect_habits():
        habits = {"Gym": {"completed": False, "weekly_targets": 5, "streak": 0},
@@ -82,10 +107,14 @@ def collect_habits():
 
 
 
+
+
 habits  = collect_habits()
 
 successtracker = SuccessTracker(habits)
+successtracker.load_history()
 successtracker.ask_questions()
 successtracker.calculate_score()
 successtracker.show_results()
 successtracker.save_results()
+
