@@ -1,9 +1,18 @@
+def show_menu():
+    print("\n" + "=" * 35)
+    print("    DAILY SUCCESS TRACKER")
+    print("=" * 35)
+    print("1. Daily check-ins")
+    print("2. View previous records")
+    print("3. Statistics (coming soon)")
+    print("4. Exit")
+    print("=" * 35)
+
 from tracker import SuccessTracker
 import storage
 
 
-print(storage.__file__)
-print(dir(storage))
+
 
 print("=" * 40)
 print("    DAILY SUCCESS TRACKER")
@@ -26,18 +35,34 @@ def collect_habits():
                  }
        return habits 
 
-
-
-
-
-
 habits  = collect_habits()
 
 tracker = SuccessTracker(name, habits)
 
 tracker.load()
-tracker.ask()
-tracker.calculate()
-tracker.show()
-tracker.save()
+while True:
+    show_menu()
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        tracker.ask()
+        tracker.calculate()
+        tracker.show()
+        tracker.save()
+
+    elif choice == "2":
+        print("View Previous Records - Coming Soon")
+
+    elif choice == "3":
+        print("Statistics - Coming Soon")
+
+    elif choice == "4":
+        print("Goodbye Boss!")
+        break
+
+    else:
+        print("Invalid choice. Please try again.")
+
+
 
