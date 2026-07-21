@@ -10,6 +10,7 @@ def show_menu():
 
 from tracker import SuccessTracker
 import storage
+from history import show_history
 
 
 
@@ -52,7 +53,7 @@ while True:
         tracker.save()
 
     elif choice == "2":
-        print("View Previous Records - Coming Soon")
+        show_history()
 
     elif choice == "3":
         print("Statistics - Coming Soon")
